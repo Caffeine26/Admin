@@ -1,7 +1,7 @@
-import axios from 'axios';
+import api from "./api.js";
 
-const baseURL = "http://localhost:8000/api/product-customization";
-const storageURL = "http://localhost:8000/storage/";
+const baseURL = "/api/product-customization";
+const storageURL = import.meta.env.VITE_API_BASE_URL_STORAGE;
 
 function normalizeProduct(product: any) {
   return {
@@ -21,7 +21,7 @@ function normalizeGrouped(responseData: any) {
 
 export default {
   async getAll() {
-  const response = await axios.get(baseURL);
+  const response = await api.get(baseURL);
 
   // Access the "data" key from your JSON
   const rows = Array.isArray(response.data.data) ? response.data.data : [];
@@ -44,7 +44,7 @@ export default {
 
   async getById(id: number) {
       try {
-        const response = await axios.get(`${baseURL}/${id}`)
+        const response = await api.get(`${baseURL}/${id}`)
         const data = response.data
 
         if (!data) return null
@@ -78,21 +78,21 @@ export default {
     },
 
   async create(payload: any) {
-    const response = await axios.post(baseURL, payload);
+    const response = await api.post(baseURL, payload);
     return normalizeGrouped(response.data);
   },
 
   async update(id: number, payload: any) {
-    const response = await axios.put(`${baseURL}/${id}`, payload);
+    const response = await api.put(`${baseURL}/${id}`, payload);
     return normalizeGrouped(response.data);
   },
 
   async delete(id: number) {
-    return axios.delete(`${baseURL}/${id}`);
+    return api.delete(`${baseURL}/${id}`);
   },
 
   async optionsByProduct(productId: number) {
-    const response = await axios.get(`${baseURL}/${productId}/options`);
+    const response = await api.get(`${baseURL}/${productId}/options`);
     return normalizeGrouped(response.data);
   },
 };

@@ -1,16 +1,16 @@
-import axios from 'axios';
-import type { Feedback } from '@/types/feedback';
+import api from "./api.js";
+import type { Feedback } from '@/types/feedback.js';
 
-const API_URL = 'http://localhost:8000/api/feedbacks'; 
+const API_URL = '/api/feedbacks';
 
 export default {
   getAll: async (): Promise<Feedback[]> => {
-    const { data } = await axios.get<Feedback[]>(API_URL);
+    const { data } = await api.get<Feedback[]>(API_URL);
     return data;
   },
 
   getById: async (id: number): Promise<Feedback> => {
-    const { data } = await axios.get<Feedback>(`${API_URL}/${id}`);
+    const { data } = await api.get<Feedback>(`${API_URL}/${id}`);
     return data;
   }
 };

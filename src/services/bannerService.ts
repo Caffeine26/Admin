@@ -1,8 +1,8 @@
-import axios from 'axios'
-import { Banners } from '@/types/banner'
+import { Banners } from '@/types/banner.js';
+import api from "./api.js";
 
-const baseURL = "http://localhost:8000/api/banners"
-const storageURL = "http://localhost:8000/storage/"
+const baseURL = "/api/banners";
+const storageURL = import.meta.env.VITE_API_BASE_URL_STORAGE;
 
 // Normalize banner to include full image URL
 function normalizeBanner(banner: Banners): Banners {
@@ -15,30 +15,30 @@ function normalizeBanner(banner: Banners): Banners {
 export default {
   // Get all banners
   async getAllBanners(): Promise<Banners[]> {
-    const response = await axios.get(baseURL)
+    const response = await api.get(baseURL);
     const rawBanners = response.data?.data ?? []
     return rawBanners.map(normalizeBanner)
   },
 
   // Get banner by ID
   async getById(id: number): Promise<Banners> {
-    const response = await axios.get(`${baseURL}/${id}`)
+    const response = await api.get(`${baseURL}/${id}`)
     const rawBanner = response.data?.data ?? response.data
     return normalizeBanner(rawBanner)
   },
 
   // Create banner
   async createBanner(formData: FormData): Promise<Banners> {
-    const response = await axios.post(baseURL, formData, {
+     const response = await api.post(baseURL, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
-    })
+    });
     const rawBanner = response.data?.data ?? response.data
     return normalizeBanner(rawBanner)
   },
 
   // Update banner
   async updateBanner(id: number, formData: FormData): Promise<Banners> {
-    const response = await axios.put(`${baseURL}/${id}`, formData, {
+    const response = await api.put(`${baseURL}/${id}`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
     const rawBanner = response.data?.data ?? response.data
@@ -47,18 +47,18 @@ export default {
 
   // Delete banner
   async delete(id: number) {
-    return axios.delete(`${baseURL}/${id}`)
+    return api.delete(`${baseURL}/${id}`)
   },
 
   // Toggle banner status
   async toggleStatus(id: number, status: number): Promise<Banners> {
-    const response = await axios.patch(`${baseURL}/${id}/status`, { status })
+    const response = await api.patch(`${baseURL}/${id}/status`, { status })
     const rawBanner = response.data?.data ?? response.data
     return normalizeBanner(rawBanner)
   },
 
   // Update order after drag-and-drop
   async updateOrder(banners: { id: number; view_order: number }[]) {
-    return axios.post(`${baseURL}/reorder`, { banners })
+    return api.post(`${baseURL}/reorder`, { banners })
   }
 }

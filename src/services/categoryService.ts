@@ -1,17 +1,17 @@
-import axios from 'axios';
-import { Category } from '@/types/category';
+import { Category } from '@/types/category.js';
+import api from "./api.js";
 
-const baseURL = 'http://localhost:8000/api/categories';
+const baseURL = '/api/categories';
 
 export default {
   // Get all categories
   getAll() {
-    return axios.get<{ data: Category[] }>(baseURL);
+    return api.get<{ data: Category[] }>(baseURL);
   },
 
   // Create new category
   create(formData: FormData) {
-    return axios.post(baseURL, formData, {
+    return api.post(baseURL, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   },
@@ -23,13 +23,13 @@ export default {
       formData.append('_method', 'PUT');
     }
 
-    return axios.post(`${baseURL}/${id}`, formData, {
+    return api.post(`${baseURL}/${id}`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   },
 
   // Delete category
   delete(id: number) {
-    return axios.delete(`${baseURL}/${id}`);
+    return api.delete(`${baseURL}/${id}`);
   },
 };

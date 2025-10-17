@@ -43,8 +43,6 @@ declare module 'vue-router/auto-routes' {
     '/Promotions/[id]/edit': RouteRecordInfo<'/Promotions/[id]/edit', '/Promotions/:id/edit', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/Promotions/create': RouteRecordInfo<'/Promotions/create', '/Promotions/create', Record<never, never>, Record<never, never>>,
     '/register': RouteRecordInfo<'/register', '/register', Record<never, never>, Record<never, never>>,
-    '/sonit': RouteRecordInfo<'/sonit', '/sonit', Record<never, never>, Record<never, never>>,
     '/Tables/': RouteRecordInfo<'/Tables/', '/Tables', Record<never, never>, Record<never, never>>,
-    '/test': RouteRecordInfo<'/test', '/test', Record<never, never>, Record<never, never>>,
   }
 }

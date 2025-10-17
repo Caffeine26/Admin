@@ -73,16 +73,16 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { useOrderStore } from "@/stores/orderStore";
-import { useProductStore } from "@/stores/productStore";
-import { useCustomizationStore } from "@/stores/customizationStore";
-import type { OrderStatus } from "@/types/order";
+import { useOrderStore } from "@/stores/orderStore.js";
+import { useProductStore } from "@/stores/productStore.js";
+import { useProductCustomizationStore } from "@/stores/customizationStore.js";
+import type { OrderStatus } from "@/types/order.js";
 
 // Stores
 const router = useRouter();
 const orderStore = useOrderStore();
 const productStore = useProductStore();
-const customizationStore = useCustomizationStore();
+const customizationStore = useProductCustomizationStore();
 const valid = ref(false);
 
 // Statuses
@@ -126,7 +126,7 @@ onMounted(async () => {
 
     products.value = productStore.products.map((p) => ({
         ...p,
-        customize: customizationStore.byProduct(p.id),
+        customize: customizationStore.getById(p.id),
     }));
 });
 

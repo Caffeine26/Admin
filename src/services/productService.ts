@@ -1,8 +1,8 @@
-import axios from 'axios'
-import { Product } from '@/types/product'
+import api from "./api.js";
+import { Product } from '@/types/product.js'
 
-const baseURL = "http://localhost:8000/api/products"
-export const storageURL = "http://localhost:8000/storage/"
+const baseURL = "/api/products"
+export const storageURL = import.meta.env.VITE_API_BASE_URL_STORAGE;
 
 function normalizeProduct(product: Product): Product {
   return {
@@ -13,7 +13,7 @@ function normalizeProduct(product: Product): Product {
 
 export default {
   async getAll() {
-    const response = await axios.get<{ data: Product[] }>(baseURL)
+    const response = await api.get<{ data: Product[] }>(baseURL)
     return {
       ...response,
       data: {
@@ -24,12 +24,12 @@ export default {
   },
 
   async getById(id: number) {
-    const response = await axios.get<{ data: Product }>(`${baseURL}/${id}`)
+    const response = await api.get<{ data: Product }>(`${baseURL}/${id}`)
     return { ...response, data: normalizeProduct(response.data.data) }
   },
 
   async create(formData: FormData) {
-    const response = await axios.post(baseURL, formData, {
+    const response = await api.post(baseURL, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
     return { ...response, data: normalizeProduct(response.data.data) }
@@ -39,7 +39,7 @@ export default {
     // Laravel expects _method=PUT for file upload
     if (!formData.has('_method')) formData.append('_method', 'PUT')
 
-    const response = await axios.post(`${baseURL}/${id}`, formData, {
+    const response = await api.post(`${baseURL}/${id}`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
 
@@ -47,6 +47,6 @@ export default {
   },
 
   async delete(id: number) {
-    return axios.delete(`${baseURL}/${id}`)
+    return api.delete(`${baseURL}/${id}`)
   },
 }
