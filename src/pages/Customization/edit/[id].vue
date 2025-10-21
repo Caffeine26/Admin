@@ -120,7 +120,7 @@ const headers = [
 
 // Helper to normalize image URLs
 const normalizeImageUrl = (path: string | null) =>
-    path ? `http://localhost:8000/storage/${path.replace(/^images\//, '')}` : null
+    path ? import.meta.env.VITE_API_BASE_URL_STORAGE + `/${path.replace(/^images\//, '')}` : null
 
 onMounted(async () => {
     try {

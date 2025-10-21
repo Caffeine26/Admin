@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
-import { Banners } from '@/types/banner'
-import bannerService from '@/services/bannerService'
+import { defineStore } from 'pinia';
+import { Banners } from '@/types/banner.js';
+import bannerService from '@/services/bannerService.js';
 
 export const useBannerStore = defineStore('banner', {
   state: () => ({
@@ -20,7 +20,7 @@ export const useBannerStore = defineStore('banner', {
 
     async createBanner(formData: FormData) {
       const banner = await bannerService.createBanner(formData)
-      this.banners.push(banner)
+      this.banners.push(banner);
     },
 
     async updateBanner(id: number, formData: FormData) {

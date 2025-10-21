@@ -2,18 +2,32 @@ import { Category } from '@/types/category.js';
 import api from "./api.js";
 
 const baseURL = '/api/categories';
+const storageURL = import.meta.env.VITE_API_BASE_URL_STORAGE;
+
+
+// Normalize banner to include full image URL
+function normalizeCategory(category: Category): Category {
+  return {
+    ...category,
+    image: category.image ? storageURL + category.image : '',
+  }
+}
 
 export default {
   // Get all categories
-  getAll() {
-    return api.get<{ data: Category[] }>(baseURL);
+  async getAll(): Promise<Category[]> {
+    const response = await api.get(baseURL);
+    const rawCategory = response.data?.data ?? [];
+    return rawCategory.map(normalizeCategory);
   },
 
   // Create new category
-  create(formData: FormData) {
-    return api.post(baseURL, formData, {
+  async create(formData: FormData) {
+    const response = await api.post(baseURL, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
+    const rawCategory = response.data?.data ?? response.data;
+    return rawCategory.map(normalizeCategory);
   },
 
   // Update category

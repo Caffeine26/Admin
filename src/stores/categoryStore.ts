@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
-import { Category } from '@/types/category';
+import { Category } from '@/types/category.js';
+import categoryService from '@/services/categoryService.js';
 
 export const useCategoryStore = defineStore('categoryStore', {
   state: () => ({
@@ -11,12 +11,7 @@ export const useCategoryStore = defineStore('categoryStore', {
     async fetchCategories() {
       this.loading = true;
       try {
-        const res = await axios.get('http://localhost:8000/api/categories');
-        // Add full image URL
-        this.categories = res.data.data.map((c: any) => ({
-          ...c,
-          image_url: c.image ? `http://localhost:8000/storage/${c.image}` : null
-        }));
+        this.categories = await categoryService.getAll();
       } catch (error) {
         console.error('Failed to fetch categories:', error);
       } finally {
@@ -26,15 +21,9 @@ export const useCategoryStore = defineStore('categoryStore', {
 
     async createCategory(formData: FormData) {
       try {
-        const res = await axios.post('http://localhost:8000/api/categories', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
-        const newCategory = {
-          ...res.data.data,
-          image_url: res.data.data.image ? `http://localhost:8000/storage/${res.data.data.image}` : null
-        };
-        this.categories.push(newCategory);
-        return newCategory;
+        const res = await categoryService.create(formData);
+        this.categories.push(res);
+        return res;
       } catch (error: any) {
         console.error('Failed to create category:', error.response?.data || error);
         throw error.response?.data || { error: 'Failed to create category' };
@@ -43,9 +32,7 @@ export const useCategoryStore = defineStore('categoryStore', {
 
     async updateCategory(id: number, formData: FormData) {
       try {
-        const res = await axios.post(`http://localhost:8000/api/categories/${id}`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
+        const res = await categoryService.update(id, formData);
         const updatedCategory = {
           ...res.data.data,
           image_url: res.data.data.image ? `http://localhost:8000/storage/${res.data.data.image}` : null
@@ -63,7 +50,7 @@ export const useCategoryStore = defineStore('categoryStore', {
 
     async deleteCategory(id: number) {
       try {
-        await axios.delete(`http://localhost:8000/api/categories/${id}`);
+        await categoryService.delete(id);
         this.categories = this.categories.filter(c => c.id !== id);
       } catch (error: any) {
         console.error('Failed to delete category:', error.response?.data || error);

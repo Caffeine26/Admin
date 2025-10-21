@@ -17,7 +17,7 @@ export default {
   async getAllBanners(): Promise<Banners[]> {
     const response = await api.get(baseURL);
     const rawBanners = response.data?.data ?? []
-    return rawBanners.map(normalizeBanner)
+    return rawBanners.map(normalizeBanner);
   },
 
   // Get banner by ID
@@ -33,7 +33,7 @@ export default {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     const rawBanner = response.data?.data ?? response.data
-    return normalizeBanner(rawBanner)
+    return normalizeBanner(rawBanner);
   },
 
   // Update banner
