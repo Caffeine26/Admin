@@ -35,7 +35,7 @@ export const useCategoryStore = defineStore('categoryStore', {
         const res = await categoryService.update(id, formData);
         const updatedCategory = {
           ...res.data.data,
-          image_url: res.data.data.image ? `http://localhost:8000/storage/${res.data.data.image}` : null
+          image_url: res.data.data.image ? import.meta.env.VITE_API_BASE_URL_STORAGE + `${res.data.data.image}` : null
         };
         const index = this.categories.findIndex(c => c.id === id);
         if (index !== -1) {

@@ -9,13 +9,13 @@ const storageURL = import.meta.env.VITE_API_BASE_URL_STORAGE;
 function normalizeCategory(category: Category): Category {
   return {
     ...category,
-    image: category.image ? storageURL + category.image : '',
+    image_url: category.image ? storageURL + category.image : '',
   }
 }
 
 export default {
   // Get all categories
-  async getAll(): Promise<Category[]> {
+  async  getAll(): Promise<Category[]> {
     const response = await api.get(baseURL);
     const rawCategory = response.data?.data ?? [];
     return rawCategory.map(normalizeCategory);
