@@ -159,7 +159,4 @@ function getStatusColor(status: string) {
 </script>
 
 <style scoped>
-.bg-grey-lighten-4 {
-    background-color: #45dd16;
-}
 </style>

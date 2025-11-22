@@ -21,7 +21,7 @@ const sidebarItem: menu[] = [
     {
         title: 'Dashboard',
         icon: 'widget-add-line-duotone',
-        to: '/home'
+        to: '/'
     },
     {
         title: 'Orders',
@@ -56,66 +56,66 @@ const sidebarItem: menu[] = [
    
    
    
-    {
-        title: 'Promotions',
-        icon: 'shield-user-line-duotone',
-        to: '/promotions',
-        children:[{
-            title: 'Promotion Management',
-            to: '/Promotions',
-            icon:  'shield-user-line-duotone',
-        },
-         {
-                title:'Coupon Management',
-                to:'/Coupons',
-                icon:  'widget-add-line-duotone'
-            },
-    ]
-    },
-    {
-        title: 'Customers',
-        icon:'shield-user-line-duotone',
-        to:'',
-        children:[{
-            title: 'Customer Management',
-            to:'/Customer',
-            icon: 'shield-user-line-duotone',
+    // {
+    //     title: 'Promotions',
+    //     icon: 'shield-user-line-duotone',
+    //     to: '/promotions',
+    //     children:[{
+    //         title: 'Promotion Management',
+    //         to: '/Promotions',
+    //         icon:  'shield-user-line-duotone',
+    //     },
+    //      {
+    //             title:'Coupon Management',
+    //             to:'/Coupons',
+    //             icon:  'widget-add-line-duotone'
+    //         },
+    // ]
+    // },
+    // {
+    //     title: 'Customers',
+    //     icon:'shield-user-line-duotone',
+    //     to:'',
+    //     children:[{
+    //         title: 'Customer Management',
+    //         to:'/Customer',
+    //         icon: 'shield-user-line-duotone',
 
-        },
-        {
-            title:'Coupon Management',
-            to:'/Coupone Management',
-            icon: 'shield-user-line-duotone',
+    //     },
+    //     {
+    //         title:'Coupon Management',
+    //         to:'/Coupone Management',
+    //         icon: 'shield-user-line-duotone',
 
-        }
-    ]
-    },
+    //     }
+    // ]
+    // },
     {
         title: 'Settings',
         icon: 'shield-user-line-duotone',
         children:[
-            {
-            title:' User Management',
-            icon:'shield-user-line-duotone',
-            to: '/customer',
-        },
-        {
-            title: 'Section Management',
-            icon: 'shield-user-line-duotone',
-            to: '',
+        //     {
+        //     title:' User Management',
+        //     icon:'shield-user-line-duotone',
+        //     to: '/customer',
+        // },
+        // {
+        //     title: 'Section Management',
+        //     icon: 'shield-user-line-duotone',
+        //     to: '',
 
-        },
+        // },
         {   
                 title: 'Banner Management',
                 to: '/Banners',
                 icon: 'cart-3-line-duotone',
         },
 
-        {
-            title: 'Language Management',
-            icon: 'shield-user-line-duotone',
-            to: '',
-        },
+        // {
+        //     title: 'Language Management',
+        //     icon: 'shield-user-line-duotone',
+        //     to: '',
+        // },
         {
             title: 'Table Management',
             icon: 'shield-user-line-duotone',
@@ -128,16 +128,7 @@ const sidebarItem: menu[] = [
         icon: 'user-plus-rounded-line-duotone',
         to: '/Feedbacks'
     },
-    {
-        title: 'Report',
-        icon: 'user-plus-rounded-line-duotone',
-        to: '/Reports'
-    },
-    {
-        title: 'Logout',
-        icon: 'user-plus-rounded-line-duotone',
-        to: '/Logout'
-    }
+    
 
 
 

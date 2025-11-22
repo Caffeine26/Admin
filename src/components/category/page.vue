@@ -95,8 +95,8 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, computed, onMounted } from 'vue';
-import { useCategoryStore } from '@/stores/categoryStore';
-import { Category } from '@/types/category';
+import { useCategoryStore } from '@/stores/categoryStore.js';
+import { Category } from '@/types/category.js';
 
 export default defineComponent({
     name: 'CategoryAdmin',

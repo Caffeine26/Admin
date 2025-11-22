@@ -15,6 +15,7 @@ import { Icon } from '@iconify/vue'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 // Styles
+import VueApexCharts from 'vue3-apexcharts'
 import 'unfonts.css'
 
 const app = createApp(App)
@@ -22,6 +23,7 @@ const pinia = createPinia()
 
 registerPlugins(app)
 app.component('Icon', Icon)
+app.component('ApexChart', VueApexCharts)
 app.use(pinia) 
 app.mount('#app')
 

@@ -11,6 +11,7 @@ function normalizeProduct(product: any) {
 }
 
 // Converts backend response to grouped array structure
+
 function normalizeGrouped(responseData: any) {
   return {
     menu: Array.isArray(responseData.menu) ? responseData.menu.map(normalizeProduct) : [],
@@ -18,6 +19,7 @@ function normalizeGrouped(responseData: any) {
     modify: Array.isArray(responseData.modify) ? responseData.modify.map(normalizeProduct) : [],
   };
 }
+
 
 export default {
   async getAll() {
@@ -87,12 +89,18 @@ export default {
     return normalizeGrouped(response.data);
   },
 
-  async delete(id: number) {
-    return api.delete(`${baseURL}/${id}`);
-  },
+    async delete(productId: number) {
+  // DELETE using URL parameter instead of sending in request body
+  return api.delete(`${baseURL}/${productId}`);
+},
 
+
+  
   async optionsByProduct(productId: number) {
-    const response = await api.get(`${baseURL}/${productId}/options`);
-    return normalizeGrouped(response.data);
-  },
+  const response = await api.get(`${baseURL}/${productId}/options`);
+  
+  // Pass `data` key from backend
+  return normalizeGrouped(response.data.data); 
+}
+
 };
